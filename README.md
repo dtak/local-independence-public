@@ -87,7 +87,7 @@ that recover them. For more details, check out the
 
 - [2D Illustrative Examples](./2D-Illustrative-Examples.ipynb) contains code and data to replicate our 2D experiments, which illustrate our method and serve as a simple litmus test for diverse ensemble training methods.
 - [8D Feature Selection](./8D-Feature-Selection.ipynb) replicates our feature selection experiment, which shows that our method can solve this important case and also demonstrates how training many model classes normally leads to a dense, unintuitive combination of individually interpretable functions.
-- [dSprites Latent Space](./dSprites-Latent-Space.ipynb) replicates our results on [dSprites](https://github.com/deepmind/dsprites-dataset), a 64x64 image dataset, which demonstrates that our method can still be used in high-dimensional settings where input features aren't individually meaningful.
+- [dSprites Latent Space](./DSprites-Latent-Space.ipynb) replicates our results on [dSprites](https://github.com/deepmind/dsprites-dataset), a 64x64 image dataset, which demonstrates that our method can still be used in high-dimensional settings where input features aren't individually meaningful.
 
 ## Citation
 
