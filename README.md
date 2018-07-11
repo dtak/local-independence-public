@@ -3,9 +3,9 @@ This repository contains code and data used to generate the results in
 
 ## Main Idea
 
-### Interpretable + Interpretable = Uninterpretable
+### Motivation: Interpretable + Interpretable = Uninterpretable
 
-Let's start with a thought experiment about interpretability and ambiguity in classification, which we'll introduce with a story from [David Barber](https://www.amazon.com/Bayesian-Reasoning-Machine-Learning-Barber/dp/0521518148):
+Let's start with a thought experiment about interpretability and ambiguity in classification, based on a machine learning parable from [David Barber](https://www.amazon.com/Bayesian-Reasoning-Machine-Learning-Barber/dp/0521518148):
 
 > A father decides to teach his young son what a sports car is.  Finding it
 > difficult to explain in words, he decides to give some examples. They stand on
@@ -18,9 +18,9 @@ Let's start with a thought experiment about interpretability and ambiguity in cl
 
 In this story, we have a training dataset (`x` = cars, `y` = cries), that can
 be classified in two qualitatively different ways (`way 1` = car shape, or
-whatever the dad is thinking, and `way 2` = the color red). These ways will
+whatever the dad is thinking, and `way 2` = the color red). These classifiers will
 generalize differently on new data, even though they make the same predictions
-on the training dataset. One nice thing about both ways, however, is that they
+on the training dataset. One nice thing about both of them, however, is that they
 are easy to explain and mentally simulate, which we'll say makes them
 "interpretable." If we could be sure that our training procedure would return
 a model that exactly matched `way 1` or `way 2`, then even if we got the one
@@ -33,25 +33,27 @@ After all, _any_ such mixture would be perfectly accurate on the training set,
 so there's nothing disincentivizing us from learning it.  If this mixture was a
 simple linear combination whose weights didn't change for different inputs,
 then life might remain simple; if we saw a new car that was red but not
-sportscar-shaped, then one of the two ways would just win, and the same one
-would win every time. The model would remain easy to explain and mentally
-simulate. But if the weights changed depending on other aspects of the input
+sportscar-shaped, then one of the two ways would just win (and the same one
+might win every time). The model would remain easy to explain and mentally
+simulate.
+
+But, if the mixture weights changed depending on other aspects of the input
 (e.g. if the son switched between `way 1` and `way 2` based on
 how sunny it was, except for Toyotas), then it would start becoming
-significantly harder to explain and mentally simulate.
-
+significantly harder to explain and simulate; such a model would be significantly
+less interpretable than its underlying components.
 The worry behind this project is that this is exactly what tends to happen with
 almost every type of machine learning model on ambiguous datasets (and we'll present
 some basic results to that effect, but also
 [see](http://web.mit.edu/torralba/www/iccv2001.pdf)
 [these](https://arxiv.org/abs/1803.09797)
 [citations](https://arxiv.org/abs/1711.11561)).
-Given multiple interpretable options, we inevitably learn all of them, which
+Given multiple interpretable solutions, we inevitably learn all of them, which
 means we learn none of them; and even with the most transparent model class, or
 most well-designed explanation technique, the actual _function_ that we learn
 will be challenging for humans to understand.
 
-### Learning Independent Classifiers
+### Strategy: Learn "Independent" Classifiers
 
 How can we start trying to solve this problem? One option is to try to learn a
 model that's somehow _sparse_; perhaps not in its sensitivity to input
@@ -60,25 +62,24 @@ representation that can disentangle them). However, (1) it's hard to perfectly
 disentangle such factors, (2) it's hard to achieve sparsity for expressive
 model classes like neural networks, and (3) this only gives us one model.
 
-In this project, our goal is to overcome dataset ambiguity by learning an _ensemble_ of
-classifiers that make statistically independent predictions, but nevertheless
-all perform perfectly on the training set. These two goals are clearly at
-odds, because if all models perfectly classify the training set, then their
+In this project, our goal is to overcome dataset ambiguity by learning an
+ensemble of classifiers that make _statistically independent_ predictions, but
+nevertheless all perform perfectly on the training set. These two goals clearly
+compete, because if all models perfectly classify the training set, then their
 predictions can't be independent. But independence is always relative to a
 distribution, and our training set might not be distributed in the same way as
-our test set, or as we think the model may be used in the real world; really, we
-would like to learn an ensemble that _extrapolates_ outside our training set in
-independent ways.
+our test set, or as we think the model may be used in the real world; really,
+we would like to learn models that _extrapolate_ outside our training set
+in independent ways.
 
-Because we don't know this distribution over which we want independence, we
-instead settle for _local_ independence, which we define as follows: for a
-given input `x`, our classifiers (which might predict the same label for `x`)
-nevertheless have independent probability outputs when we perturb `x` (with
-infinitesimal-variance Gaussian noise). It turns out that this condition is
+Because this is hard to quantify, especially without the distribution over which we want independence, we
+instead settle for a notion of _local_ independence, which we define as follows: for a
+given input `x`, our classifiers must have statistically independent probability outputs when we perturb `x` with
+infinitesimal-variance Gaussian noise. It turns out that this condition is
 satisfied if and only if our classifiers have orthogonal _input gradients_ at
 `x`. So in this work, we try to achieve local independence everywhere by
-jointly training an ensemble of models with a penalty on the cosine similarity
-of their gradients. And we find that on datasets with ground-truth
+jointly training an ensemble of models with a penalty on the squared cosine similarity
+of their input gradients. And we find that on datasets with ground-truth
 interpretable classification functions, this technique lets us learn models
 that recover them. For more details, check out the
 [paper](https://arxiv.org/abs/1806.08716) or the notebooks below!
