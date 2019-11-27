@@ -1,11 +1,11 @@
+# Learning Qualitatively Diverse and Interpretable Rules for Classification
+
 This repository contains code and data used to generate the results in
-[Learning Qualitatively Diverse and Interpretable Rules for Classification](https://arxiv.org/abs/1806.08716).
+[Learning Qualitatively Diverse and Interpretable Rules for Classification](https://arxiv.org/abs/1806.08716). See also [https://github.com/dtak/lit](https://github.com/dtak/lit) for an expanded version of this paper with different applications and experiments.
 
-## Main Idea
+## Main Idea: Interpretable + Interpretable = Uninterpretable
 
-### Motivation: Interpretable + Interpretable = Uninterpretable
-
-Let's start with a thought experiment about interpretability and ambiguity in classification, based on a machine learning parable from [David Barber](https://www.amazon.com/Bayesian-Reasoning-Machine-Learning-Barber/dp/0521518148):
+Consider the following thought experiment about interpretability and ambiguity in classification, based on a machine learning parable from [David Barber](https://www.amazon.com/Bayesian-Reasoning-Machine-Learning-Barber/dp/0521518148):
 
 > A father decides to teach his young son what a sports car is.  Finding it
 > difficult to explain in words, he decides to give some examples. They stand on
@@ -53,7 +53,7 @@ means we learn none of them; and even with the most transparent model class, or
 most well-designed explanation technique, the actual _function_ that we learn
 will be challenging for humans to understand.
 
-### Strategy: Learn "Independent" Classifiers
+## Strategy: Learn "Independent" Classifiers
 
 How can we start trying to solve this problem? One option is to try to learn a
 model that's somehow _sparse_; perhaps not in its sensitivity to input
@@ -94,7 +94,7 @@ that recover them. For more details, check out the
 
 ```
 @inproceedings{ross2018learning,
-  author    = {Ross, Andrew and Pan, Weiwei and Doshi-Velez, Finale},
+  author    = {Ross, Andrew Slavin and Pan, Weiwei and Doshi-Velez, Finale},
   title     = {Learning Qualitatively Diverse and Interpretable Rules for Classification},
   booktitle = {2018 ICML Workshop on Human Interpretability in Machine Learning (WHI 2018)},
   year      = {2018},
