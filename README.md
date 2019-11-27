@@ -1,7 +1,7 @@
 # Learning Qualitatively Diverse and Interpretable Rules for Classification
 
 This repository contains code and data used to generate the results in
-[Learning Qualitatively Diverse and Interpretable Rules for Classification](https://arxiv.org/abs/1806.08716). See also [https://github.com/dtak/lit](https://github.com/dtak/lit) for an expanded version of this paper with different applications and experiments.
+[Learning Qualitatively Diverse and Interpretable Rules for Classification](https://arxiv.org/abs/1806.08716). See also an [expanded version](https://github.com/dtak/lit) of this paper with different applications and experiments.
 
 ## Main Idea: Interpretable + Interpretable = Uninterpretable
 
